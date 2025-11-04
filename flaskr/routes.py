@@ -25,5 +25,9 @@ def login():
     return render_template('login.html', form=form)
 
 @app.route('/menu')
-def dashboard():
+def menu():
     return render_template('menu.html')
+
+@app.route('/relatorio-grafico')
+def relatorio_grafico():
+    return render_template('relatorio-grafico.html')
