@@ -4,87 +4,76 @@ with Jinja2 syntax, Flask-WTF Forms implementation, and
 some legibility improvements added afterwards.
 -->
 
-<!-- TODO: Make the window height fit vertically with no scrolling -->
-<!-- TODO: Separate the page into a base.html file and leave only the essential here -->
-<!DOCTYPE html>
-<html data-bs-theme="light" lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Projeto-financeiro-clientes</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
-</head>
+{% block title %} Login - Projeto-financeiro-clientes {% endblock %}
 
-<body>
-    <section class="position-relative ps-0 mt-0 pt-0 py-xl-5">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-sm-9 col-md-7 col-lg-7 col-xl-6 ps-5 pe-5">
-                    <div class="card rounded-4">
-                        <div class="card-body d-flex flex-column align-items-center p-0">
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-image text-primary" style="width: 128px;height: 128px;">
-                                    <!-- TODO: Change the SVG to the png logo of the customer -->
-                                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path>
-                                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12"></path>
-                                </svg>
-                            </div>
-                            <div class="text-center">
-                                <h1 class="fs-3 fw-semibold">Bem-vindo de volta</h1>
-                                <p>Digite suas credenciais para acessar a conta</p>
-                            </div>
-                            <form class="w-100 p-4 ps-lg-5 ps-xl-5 ps-xxl-5 pe-lg-5 pe-xl-5 pe-xxl-5" method="post">
-                                {{ form.hidden_tag() }} <!-- CSRF token -->
-
-                                <!-- 
-                                In the following code, Block 1 (disabled) uses manual inputs,
-                                while Block 2 uses Jinja2 syntax and Flask-WTF Forms to automattically
-                                handle input data and validation to the backend
-                                -->
-
-                                <!-- Block 1(disabled): For reference only -->
-
-                                <!--
-
-                                <div class="mb-3">
-                                    <label class="form-label text-start w-100" style="margin-bottom: 0px;">Nome de usuário</label>
-                                    <input class="form-control" type="email" name="username" placeholder="Digite seu nome de usuário">
-                                </div>
-
-                                -->
-
-                                <!-- Block 2: Current code used -->
-
-                                <div class="mb-2">
-                                    {{ form.username.label(class="form-label fw-semibold text-start mb-1") }}
-                                    {{ form.username(class="form-control", placeholder="Digite seu nome de usuário") }}
-                                </div>
-
-                                <div class="mb-3">
-                                    {{ form.password.label(class="form-label fw-semibold text-start mb-1") }}
-                                    {{ form.password(class="form-control", placeholder="Digite sua senha") }}
-                                </div>
-
-                                <div class="form-check text-start mb-3">
-                                    {{ form.remember_me(class="form-check-input") }}
-                                    {{ form.remember_me.label(class="form-check-label")}}
-                                </div>
-
-                                <div>
-                                    <button class="btn btn-primary fw-semibold w-100" type="submit">
-                                        {{ form.submit.label.text }}
-                                    </button>
-                                </div>
-
-                            </form>
+{% block content %}
+<section class="position-relative ps-0 mt-0 pt-0 py-xl-5">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-9 col-md-7 col-lg-7 col-xl-6 ps-5 pe-5">
+                <div class="card rounded-4">
+                    <div class="card-body d-flex flex-column align-items-center p-0">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-image text-primary" style="width: 128px;height: 128px;">
+                                <!-- TODO: Change the SVG to the png logo of the customer -->
+                                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path>
+                                <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12"></path>
+                            </svg>
                         </div>
+                        <div class="text-center">
+                            <h1 class="fs-3 fw-semibold">Bem-vindo de volta</h1>
+                            <p>Digite suas credenciais para acessar a conta</p>
+                        </div>
+                        <form class="w-100 p-4 ps-lg-5 ps-xl-5 ps-xxl-5 pe-lg-5 pe-xl-5 pe-xxl-5" method="post">
+                            {{ form.hidden_tag() }} <!-- CSRF token -->
+
+                            <!-- 
+                            In the following code, Block 1 (disabled) uses manual inputs,
+                            while Block 2 uses Jinja2 syntax and Flask-WTF Forms to automattically
+                            handle input data and validation to the backend
+                            -->
+
+                            <!-- Block 1(disabled): For reference only -->
+
+                            <!--
+
+                            <div class="mb-3">
+                                <label class="form-label text-start w-100" style="margin-bottom: 0px;">Nome de usuário</label>
+                                <input class="form-control" type="email" name="username" placeholder="Digite seu nome de usuário">
+                            </div>
+
+                            -->
+
+                            <!-- Block 2: Current code used -->
+
+                            <div class="mb-2">
+                                {{ form.username.label(class="form-label fw-semibold text-start mb-1") }}
+                                {{ form.username(class="form-control", placeholder="Digite seu nome de usuário") }}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form.password.label(class="form-label fw-semibold text-start mb-1") }}
+                                {{ form.password(class="form-control", placeholder="Digite sua senha") }}
+                            </div>
+
+                            <div class="form-check text-start mb-3">
+                                {{ form.remember_me(class="form-check-input") }}
+                                {{ form.remember_me.label(class="form-check-label")}}
+                            </div>
+
+                            <div>
+                                <button class="btn btn-primary fw-semibold w-100" type="submit">
+                                    {{ form.submit.label.text }}
+                                </button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <script src="static/bootstrap/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+<!-- 
+The following code was exported from by bootstrap studio,
+with Jinja2 syntax, Flask-WTF Forms implementation, and
+some legibility improvements added afterwards.
+-->
+
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>
+        {% block title %}Projeto-financeiro-clientes{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bss-overrides.css') }}">
+
+    {% block head %}{% endblock %}
+
+</head>
+
+<body>
+
+    {% block navbar %}{% endblock %}
+
+    {% block content %}{% endblock %}
+
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>
