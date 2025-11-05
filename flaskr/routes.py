@@ -31,3 +31,7 @@ def menu():
 @app.route('/relatorio-grafico')
 def relatorio_grafico():
     return render_template('relatorio-grafico.html')
+
+@app.route('/relatorio-gerado')
+def relatorio_gerado():
+    return render_template('relatorio-gerado.html')
