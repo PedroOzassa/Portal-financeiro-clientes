@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %} Relatorio-gerado - Projeto-financeiro-clientes {% endblock %}
+
+{% block navbar %}
+  {% include "includes/navbar.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="row g-0 justify-content-center">
+    <div class="col-9 mt-5">
+        <div class="card rounded-4">
+            <div class="card-body">
+                <h4 class="fw-bold text-primary p-2 card-title">Duplicatas Liquidadas</h4>
+
+                <form class="text-end" method="post">
+                    {{ form.hidden_tag() }}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 align-self-center">
+                                <div class="mb-3">
+                                    <p class="fw-semibold text-start text-muted mb-1">Número da C/C</p> <!-- TODO: Pegar diereto nao ler -->
+                                    {{ form.cedente_id(class="form-control") }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <p class="fw-semibold text-start text-muted mb-1">Intervalo</p>
+                                    {{ form.interval(class="form-select") }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <p class="fw-semibold text-start text-muted mb-1">Período (de)</p>
+                                    {{ form.start_date(class="form-control", type="date") }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <p class="fw-semibold text-start text-muted mb-1">Período (a)</p>
+                                    {{ form.end_date(class="form-control", type="date") }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form.submit(class="btn btn-primary btn-lg fs-6 fw-semibold m-2 ps-4 pe-4") }}
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/report_date_filter.js') }}"></script>
+{% endblock %}

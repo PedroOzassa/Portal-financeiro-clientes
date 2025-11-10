@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %} Relatório - Duplicatas Liquidadas {% endblock %}
+
+{% block navbar %}
+  {% include "includes/navbar.html" %}
+{% endblock %}
+
+{% block content %}
+<div class="row g-0 justify-content-center">
+    <div class="col-11 p-0 mt-5 mb-5">
+        <div class="card rounded-4 p-2">
+            <div class="card-body">
+
+                <div class="row m-0 p-0 mb-2">
+                    <div class="col-md-6">
+                        <h3 class="fw-bold mb-1 text-primary">Duplicatas Liquidadas</h3>
+                        <h6 class="text-muted mb-2">{{ dtini }} → {{ dtfim }}</h6>
+                        <h6 class="text-muted">
+                            Gerado em {{ datetime.strftime("%d/%m/%Y %H:%M:%S") }}
+                        </h6>
+                    </div>
+                </div>
+
+                <h5><span>Cedente:</span>&nbsp;{{ numct }} - {{ rasoc }}</h5>
+                <a class="fw-semibold text-decoration-none" href="#">Clique aqui para ver o TOTAL</a>
+
+                <div class="table-responsive border rounded-1 mt-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-nowrap fw-semibold bg-secondary">Seq.</th>
+                                <th class="text-nowrap fw-semibold bg-secondary">Sacado</th>
+                                <th class="text-nowrap fw-semibold bg-secondary">Nome do Sacado</th>
+                                <th class="text-nowrap fw-semibold bg-secondary">Duplicata</th>
+                                <th class="text-nowrap fw-semibold bg-secondary">Valor</th>
+                                <th class="fw-semibold bg-secondary">Vencimento</th>
+                                <th class="fw-semibold text-start bg-secondary">Pagamento</th>
+                                <th class="fw-semibold text-start bg-secondary">Atrasado</th>
+                                <th class="fw-semibold text-end bg-secondary">Valor Pago</th> <!-- TODO: Fazer o calculo de quantos dias está atrasado usando DTV-->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="fw-semibold text-black text-bg-secondary" colspan="4">--&gt; Obs</td>
+                                <td class="fw-semibold text-black text-bg-secondary" colspan="5">Mot</td>
+                            </tr>
+                            {% for row in rows %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ row.DA_CGCPF }}</td>
+                                <td>{{ row.SA_RASOC }}</td>
+                                <td>{{ row.DA_DOCUM }}/{{ row.DA_PARCE }}</td> <!-- Esta certo -->
+                                <td>{{ "{:,.2f}".format(row.DA_VLTIT) }}</td>
+                                <td>{{ row.DA_DTVEN.strftime("%d/%m/%Y") if row.DA_DTVEN else '' }}</td>
+                                <td class="text-start">{{ row.DATAPAGTO.strftime("%d/%m/%Y") if row.DATAPAGTO else '' }}</td>
+                                <td class="text-start">{{ row.DA_NUMAC }}</td>
+                                <td class="text-end">{{ "{:,.2f}".format(row.DA_VLPAG or 0) }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">--&gt; {{ row.DA_OBSER or '' }}</td>
+                                <td colspan="5">{{ row.DA_MOTIV or '' }}</td>
+                            </tr>
+                            {% endfor %}
+                            <tr>
+                                <td class="fw-semibold text-end text-bg-light" colspan="4">TOTAL</td>
+                                <td class="fw-semibold text-bg-light" colspan="4">{{ "{:,.2f}".format(total_titulo) }}</td>
+                                <td class="fw-normal text-end text-bg-light" colspan="1">{{ "{:,.2f}".format(total_pago) }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
