@@ -25,7 +25,7 @@ def init_pool():
         dsn=dsn,
         min=4,
         max=4,
-        increment=1
+        increment=0
     )
 
     try:
