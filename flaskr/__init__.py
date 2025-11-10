@@ -1,6 +1,7 @@
 from flask import Flask
 from flaskr.db.connection import init_pool
 from flaskr.routes.auth import auth_bp
+from flaskr.routes.menu import menu_bp
 from flask_login import LoginManager
 from flaskr.models.user_model import User
 from config import FlaskCfg
@@ -14,6 +15,7 @@ def create_app():
     init_pool()
 
     app.register_blueprint(auth_bp)
+    app.register_blueprint(menu_bp)
     login_manager = LoginManager()
     login_manager.login_view = "auth_bp.login"
     login_manager.init_app(app)
