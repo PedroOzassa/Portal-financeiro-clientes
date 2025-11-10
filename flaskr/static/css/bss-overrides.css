@@ -1,4 +1,5 @@
 :root, [data-bs-theme=light] {
   --bs-primary: #1e3a8a;
   --bs-secondary: #eff6ff;
+  --bs-light: #ededed;
 }
