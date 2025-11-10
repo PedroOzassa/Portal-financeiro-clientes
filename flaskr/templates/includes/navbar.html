@@ -3,17 +3,37 @@
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown"><a class="dropdown-toggle nav-link fw-semibold link-light" aria-expanded="false" data-bs-toggle="dropdown" href="#">Relatórios</a>
-                    <div class="dropdown-menu"><a class="dropdown-item fw-semibold" href="#">Relatório Gráfico</a><a class="dropdown-item fw-semibold" href="#">Duplicatas a Receber</a><a class="dropdown-item fw-semibold" href="#">Dupl. Liquidadas</a><a class="dropdown-item fw-semibold" href="#">Pos. Cheques</a></div>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item fw-semibold" href="{{ url_for('reports_bp.relat_geral_bp.relat_geral') }}">Relatório Gráfico</a>
+                        <a class="dropdown-item fw-semibold" href="{{ url_for('reports_bp.relat_dupl_receb_bp.relat_dupl_receb') }}">Duplicatas a Receber</a>
+                        <a class="dropdown-item fw-semibold" href="{{ url_for('reports_bp.relat_dupl_liquid_bp.relat_dupl_liquid') }}">Dupl. Liquidadas</a>
+                        <a class="dropdown-item fw-semibold" href="#">Pos. Cheques</a></div>
                 </li>
                 <li class="nav-item fw-semibold text-light"><a class="nav-link text-reset" href="#">Duplicatas</a></li>
-                <li class="nav-item fw-semibold text-light"><a class="nav-link text-reset" href="#">Menu</a></li>
+                <li class="nav-item fw-semibold text-light"><a class="nav-link text-reset" href="{{ url_for('menu_bp.menu') }}">Menu</a></li>
                 <li class="nav-item fw-semibold text-light"><a class="nav-link text-reset" href="#">Sobre</a></li>
-                <li class="nav-item fw-semibold text-light"><a class="nav-link text-reset" href="#">Sair</a></li>
+                <li class="nav-item fw-semibold text-light"><a class="nav-link text-reset" href="{{ url_for('auth_bp.logout') }}">Sair</a></li>
             </ul>
         </div>
         <div>
-            <p class="fw-semibold text-end text-light m-0">Bem vindo: NOME DO CEDENTE</p>
-            <p class="text-end text-light text-opacity-75 m-0">3.60a CNPJ DO CEDENTE</p>
+            <p class="fw-semibold text-end text-light m-0">Bem-vindo: {{ current_user.rasoc or '---' }}</p>
+
+            {% set cpf = current_user.cgccpf|string %}
+            <p class="text-end text-light text-opacity-75 m-0">
+                {# This formats the string as CPF, CNPJ, or leaves it whole if the number doesn't match any of the checks #}
+                
+                {% set doc = current_user.cgccpf|string %}
+
+                {% if doc|length == 11 %}
+                    {% set formatted = doc[:3] ~ '.' ~ doc[3:6] ~ '.' ~ doc[6:9] ~ '-' ~ doc[9:] %}
+                {% elif doc|length == 14 %}
+                    {% set formatted = doc[:2] ~ '.' ~ doc[2:5] ~ '.' ~ doc[5:8] ~ '/' ~ doc[8:12] ~ '-' ~ doc[12:] %}
+                {% else %}
+                    {% set formatted = doc %}
+                {% endif %}
+
+                <p class="text-end text-light text-opacity-75 m-0">{{ formatted }}</p>
+            </p>
         </div>
     </div>
 </nav>

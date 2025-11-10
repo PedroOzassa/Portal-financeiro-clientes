@@ -1,9 +1,3 @@
-<!-- 
-The following code was exported from by bootstrap studio,
-with Jinja2 syntax, Flask-WTF Forms implementation, and
-some legibility improvements added afterwards.
--->
-
 {% extends "base.html" %}
 
 {% block title %} Login - Projeto-financeiro-clientes {% endblock %}
@@ -28,26 +22,7 @@ some legibility improvements added afterwards.
                         </div>
 
                         <form class="w-100 p-4 ps-lg-5 ps-xl-5 ps-xxl-5 pe-lg-5 pe-xl-5 pe-xxl-5" method="post">
-                            {{ form.hidden_tag() }} <!-- CSRF token -->
-
-                            <!-- 
-                            In the following code, Block 1 (disabled) uses manual inputs,
-                            while Block 2 uses Jinja2 syntax and Flask-WTF Forms to automattically
-                            handle input data and validation to the backend
-                            -->
-
-                            <!-- Block 1(disabled): For reference only -->
-
-                            <!--
-
-                            <div class="mb-3">
-                                <label class="form-label text-start w-100" style="margin-bottom: 0px;">Nome de usuário</label>
-                                <input class="form-control" type="email" name="username" placeholder="Digite seu nome de usuário">
-                            </div>
-
-                            -->
-
-                            <!-- Block 2: Current code used -->
+                            {{ form.hidden_tag() }} {# CSRF token #}
 
                             <div class="mb-2">
                                 {{ form.username.label(class="form-label fw-semibold text-start mb-1") }}
