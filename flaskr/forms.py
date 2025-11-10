@@ -1,6 +1,4 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField, SelectField
 from wtforms.validators import DataRequired, Optional
 
@@ -10,6 +8,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Senha', validators=[DataRequired()])
     remember_me = BooleanField('Lembrar de mim')
     submit = SubmitField('Login')
+
 class RelatDuplLiquidForm(FlaskForm):
     cedente_id = StringField('Número da C/C', validators= [DataRequired()])
     interval = SelectField(
@@ -27,3 +26,24 @@ class RelatDuplLiquidForm(FlaskForm):
     end_date = DateField('Período (a)', validators=[Optional()])
     submit = SubmitField('Abrir')
 
+class RelatDuplRecebForm(FlaskForm):
+    cedente_id = StringField('Número da C/C', validators= [DataRequired()])
+    interval = SelectField(
+        'Intervalo', 
+        choices=[
+            ('1','A vencer'),
+            ('2','Vencidas'),
+            ('3','Geral')
+        ],
+          validators=[Optional()]
+    )
+    start_date = DateField('Período (de)', validators=[Optional()])
+    end_date = DateField('Período (a)', validators=[Optional()])
+    submit = SubmitField('Abrir')
+
+#TODO
+class RelatGeralForm():
+    cedente_id = StringField()
+    cedente_type = StringField()
+    start_date = DateField()
+    end_date = DateField()
