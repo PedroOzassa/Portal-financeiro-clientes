@@ -1,9 +1,9 @@
 from flask import Flask
+from config import FlaskCfg
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
 
-#TODO: Research how to setup a proper secret key for 
-#this project and then move this to a config file
-app.secret_key = "you-will-never-guess"
+    app.config["SECRET_KEY"] = FlaskCfg["SECRET_KEY"]
+    app.config["SESSION_PERMANENT"] = FlaskCfg.getboolean("SESSION_PERMANENT")
 
-from flaskr import routes
