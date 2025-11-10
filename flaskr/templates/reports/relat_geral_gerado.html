@@ -34,14 +34,15 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for row in lancamentos %}
                             <tr>
-                                <td>DD/MM/AAAA</td>
-                                <td>Lorem ipsum dolor sit amet, consectur adipiscing elit.</td>
-                                <td class="text-end">0,00</td>
-                                <td class="text-end">0,00</td>
-                                <td class="text-end">0,00</td>
+                                <td>{{ row[0].strftime('%d/%m/%Y') if row[0] else '' }}</td>
+                                <td>{{ row[1] }}</td>
+                                <td class="text-end">{{ "%.2f"|format(row[4]) }}</td>
+                                <td class="text-end"></td>
+                                <td class="text-end"></td>
                             </tr>
-                            <tr></tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

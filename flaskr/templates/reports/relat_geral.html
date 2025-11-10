@@ -41,6 +41,7 @@
                                         <option value="3" selected="">3 Dias</option>
                                         <option value="15">15 Dias</option>
                                         <option value="30">30 Dias</option>
+                                        <option value="custom">Personalizado</option>
                                     </select>
                                 </div>
                             </div>
@@ -53,4 +54,8 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/report_date_filter.js') }}"></script>
 {% endblock %}

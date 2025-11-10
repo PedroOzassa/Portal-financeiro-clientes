@@ -23,6 +23,10 @@ some legibility improvements added afterwards.
 
     {% block navbar %}{% endblock %}
 
+    {% block flash %}
+        {% include "includes/flash-message.html" %}
+    {% endblock %}
+
     {% block content %}{% endblock %}
 
     <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
