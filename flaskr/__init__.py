@@ -5,13 +5,13 @@ from flaskr.routes.menu import menu_bp
 from flaskr.routes.reports import reports_bp
 from flask_login import LoginManager
 from flaskr.models.user_model import User
-from config import FlaskCfg
+from config import FlaskConfigs, Cores
 
 def create_app():
     app = Flask(__name__)
 
-    app.config["SECRET_KEY"] = FlaskCfg["SECRET_KEY"]
-    app.config["SESSION_PERMANENT"] = FlaskCfg.getboolean("SESSION_PERMANENT")
+    app.config["SECRET_KEY"] = FlaskConfigs["SECRET_KEY"]
+    app.config["SESSION_PERMANENT"] = FlaskConfigs.getboolean("SESSION_PERMANENT")
 
     init_pool()
 

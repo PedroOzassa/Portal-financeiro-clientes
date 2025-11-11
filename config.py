@@ -6,4 +6,4 @@ _config.read(Path(__file__).parent / "variaveis.ini", encoding="utf-8")
 
 ProjetoPucc = _config["ProjetoPucc"]
 Cores = _config["Cores"]
-FlaskCfg = _config["Flask"]
+FlaskConfigs = _config["FlaskConfigs"]
