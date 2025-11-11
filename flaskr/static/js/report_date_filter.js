@@ -5,17 +5,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const [inputStart, inputEnd] = dateInputs;
 
-  // Format date to YYYY-MM-DD for <input type="date">
   const formatDate = (d) => d.toISOString().split("T")[0];
-
-  // Enable/disable date inputs
   const toggleDateInputs = (readonly) => {
     inputStart.readOnly = readonly;
     inputEnd.readOnly = readonly;
   };
-  
-  // On interval change
-  selectInterval.addEventListener("change", () => {
+
+  const updateDates = () => {
     const value = selectInterval.value;
     if (value === "custom") {
       toggleDateInputs(false);
@@ -29,13 +25,19 @@ document.addEventListener("DOMContentLoaded", () => {
     inputStart.value = formatDate(start);
     inputEnd.value = formatDate(today);
     toggleDateInputs(true);
-  });
+  };
 
-  // When manually editing either date → set interval to "custom"
+  // On interval change
+  selectInterval.addEventListener("change", updateDates);
+
+  // Manual edit → set interval to "custom"
   [inputStart, inputEnd].forEach((input) => {
     input.addEventListener("input", () => {
       selectInterval.value = "custom";
       toggleDateInputs(false);
     });
   });
+
+  // Run once on page load
+  updateDates();
 });
