@@ -3,14 +3,15 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateF
 from wtforms.validators import DataRequired, Optional
 
 class LoginForm(FlaskForm):
-    # The DataRequired() function below makes the frontend's Form impossible to send if the field is empty
+    # The DataRequired() function below makes the Form
+    # impossible to send if any of the field are empty
     username = StringField('Nome de usuário', validators=[DataRequired()])
     password = PasswordField('Senha', validators=[DataRequired()])
     remember_me = BooleanField('Lembrar de mim')
     submit = SubmitField('Login')
 
 class RelatDuplLiquidForm(FlaskForm):
-    cedente_id = StringField('Número da C/C', validators= [DataRequired()])
+    cedente_id = StringField('Número da C/C', validators=[DataRequired()])
     interval = SelectField(
         'Intervalo', 
         choices=[
@@ -27,9 +28,10 @@ class RelatDuplLiquidForm(FlaskForm):
     submit = SubmitField('Abrir')
 
 class RelatDuplRecebForm(FlaskForm):
-    cedente_id = StringField('Número da C/C', validators= [DataRequired()])
-    interval = SelectField(
-        'Intervalo', 
+    cedente_id = StringField('Número da C/C', validators=[DataRequired()])
+    situation = SelectField(
+        # TODO change the js script to work on this page
+        'Situação', 
         choices=[
             ('1','A vencer'),
             ('2','Vencidas'),
@@ -41,9 +43,19 @@ class RelatDuplRecebForm(FlaskForm):
     end_date = DateField('Período (a)', validators=[Optional()])
     submit = SubmitField('Abrir')
 
-#TODO
-class RelatGeralForm():
-    cedente_id = StringField()
-    cedente_type = StringField()
-    start_date = DateField()
-    end_date = DateField()
+class RelatGeralForm(FlaskForm):
+    cedente_id = StringField('Número do Cedente', validators=[DataRequired()])
+    cedente_type = StringField('Tipo', validators=[DataRequired()])
+    start_date = DateField('Período (de)', validators=[Optional()])
+    end_date = DateField('Período (a)', validators=[Optional()])
+    interval = SelectField(
+        'Intervalo', 
+        choices=[
+            ('3','3 Dias'),
+            ('15','15 Dias'),
+            ('30','30 Dias'),
+            ('custom','Personalizado')
+        ],
+          validators=[Optional()]
+    )
+    submit = SubmitField('Abrir')
