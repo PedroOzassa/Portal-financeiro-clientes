@@ -12,14 +12,15 @@ def relat_dupl_liquid():
     form = RelatDuplLiquidForm()
 
     if form.validate_on_submit():
-        print("Form data:", form.data)
-        cedente_id = form.cedente_id.data.strip()
+        # Does not get cedente_id from the the form because even 
+        # if read-only, can still be manipulated by Dev-Tools
+        cedente_id = current_user.id
         start_date = form.start_date.data.strftime("%d/%m/%Y")
         end_date = form.end_date.data.strftime("%d/%m/%Y")
 
         return redirect(url_for(
             "reports_bp.relat_dupl_liquid_bp.relat_dupl_liquid_result",
-            numct=form.cedente_id.data,
+            numct=cedente_id,
             dtini=start_date,
             dtfim=end_date
         ))
@@ -100,7 +101,7 @@ def relat_dupl_liquid_result():
         now = datetime.now()
 
         return render_template(
-            "reports/relat_dupl_liquid_gerado.html",
+            "reports/relat_dupl_liquid_result.html",
             rows=data,
             total_pago=total_pago,
             total_titulo=total_titulo,
