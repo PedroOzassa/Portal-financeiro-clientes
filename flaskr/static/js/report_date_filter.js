@@ -27,6 +27,21 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleDateInputs(true);
   };
 
+  // Enforce max 4 digits for the year part in date inputs
+  const limitYearLength = (input) => {
+    input.addEventListener("input", () => {
+      const v = input.value;
+      if (v && v.split("-")[0].length > 4) {
+        const parts = v.split("-");
+        parts[0] = parts[0].slice(0, 4);
+        input.value = parts.join("-");
+      }
+    });
+  };
+
+  // Apply limiter to both date fields
+  dateInputs.forEach(limitYearLength);
+
   // On interval change
   selectInterval.addEventListener("change", updateDates);
 
