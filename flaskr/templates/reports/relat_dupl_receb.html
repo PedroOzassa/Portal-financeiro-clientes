@@ -12,38 +12,47 @@
         <div class="card rounded-4">
             <div class="card-body">
                 <h4 class="fw-bold text-primary p-2 card-title">Posição de Duplicatas a Receber</h4>
+
                 <form class="text-end" method="post">
+                    {{ form.hidden_tag() }}
                     <div class="container">
                         <div class="row">
                             <div class="col-md-3 align-self-center">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Número da C/C</p><input class="form-control" type="text" name="num_cedente" readonly="">
+                                    {{ form.cedente_id.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {# Gets the value directly from the user's session #}
+                                    {{ form.cedente_id(class="form-control", placeholder="Digite o número da conta", value=current_user.id, readonly="readonly") }}
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Situação</p><select class="form-select">
-                                        <option value="1" selected="">A Vencer</option>
-                                        <option value="2">Vencidas</option>
-                                        <option value="3">Geral</option>
-                                    </select>
+                                    {{ form.situation.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {{ form.situation(class="form-select") }}
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Período (de)</p><input class="form-control" type="date">
+                                    {{ form.start_date.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {{ form.start_date(class="form-control", type="date") }}
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Período (a)</p><input class="form-control" type="date">
+                                    {{ form.end_date.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {{ form.end_date(class="form-control", type="date") }}
                                 </div>
                             </div>
                         </div>
-                    </div><button class="btn btn-primary btn-lg fs-6 fw-semibold m-2 ps-4 pe-4" type="submit">Abrir</button>
+                    </div>
+                    {{ form.submit(class="btn btn-primary btn-lg fs-6 fw-semibold m-2 ps-4 pe-4") }}
                 </form>
+
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/report_date_filter.js') }}"></script>
 {% endblock %}

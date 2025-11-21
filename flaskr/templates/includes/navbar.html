@@ -17,8 +17,6 @@
         </div>
         <div>
             <p class="fw-semibold text-end text-light m-0">Bem-vindo: {{ current_user.rasoc or '---' }}</p>
-
-            {% set cpf = current_user.cgccpf|string %}
             <p class="text-end text-light text-opacity-75 m-0">
                 {# This formats the string as CPF, CNPJ, or leaves it whole if the number doesn't match any of the checks #}
                 

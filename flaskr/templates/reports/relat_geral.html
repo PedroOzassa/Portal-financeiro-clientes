@@ -12,42 +12,49 @@
         <div class="card rounded-4">
             <div class="card-body">
                 <h4 class="fw-bold text-primary p-2 card-title">Relatório Gráfico</h4>
+
                 <form class="text-center position-relative" method="post">
+                    {{ form.hidden_tag() }}
                     <div class="container">
                         <div class="row">
                             <div class="col-md-3 align-self-center">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Número do Cedente</p><input class="form-control" type="text" name="num_cedente" placeholder="Num do cedente aq" readonly="">
+                                    {{ form.cedente_id.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {# Gets the value directly from the user's session #}
+                                    {{ form.cedente_id(class="form-control", placeholder="Digite o número da conta", value=current_user.id, readonly="readonly") }}
                                 </div>
                             </div>
                             <div class="col-md-3 align-self-center">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Tipo</p><input class="form-control" type="text" readonly="" name="tipo_cedente" placeholder="Tipo do cendente aq">
+                                    {# TODO Find out where is the user type on the session and replace here#}
+                                    {{ form.cedente_type.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {# Gets the value directly from the user's session #}
+                                    {{ form.cedente_type(class="form-control", placeholder="Digite o número da conta", value=current_user.id, readonly="readonly") }}                                
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Período (de)</p><input class="form-control" type="date">
+                                    {{ form.start_date.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {{ form.start_date(class="form-control", type="date") }}                                
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Período (a)</p><input class="form-control" type="date">
+                                    {{ form.end_date.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {{ form.end_date(class="form-control", type="date") }}                                
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="mb-3">
-                                    <p class="fw-semibold text-start text-muted mb-1">Intervalo</p><select class="form-select">
-                                        <option value="3" selected="">3 Dias</option>
-                                        <option value="15">15 Dias</option>
-                                        <option value="30">30 Dias</option>
-                                        <option value="custom">Personalizado</option>
-                                    </select>
+                                    {{ form.interval.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
+                                    {{ form.interval(class="form-select") }}
                                 </div>
                             </div>
                         </div>
-                    </div><button class="btn btn-primary btn-lg fs-6 fw-semibold position-absolute bottom-0 end-0 m-2 ps-4 pe-4" type="submit">Abrir</button>
+                    </div>
+                    {{ form.submit(class="btn btn-primary btn-lg fs-6 fw-semibold m-2 ps-4 pe-4") }}
                 </form>
+                
                 <hr>
                 <h5 class="fw-semibold text-end">Saldo Final: <span class="fw-bold text-primary">R$ 0,00</span></h5>
             </div>
