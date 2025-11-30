@@ -6,12 +6,14 @@ from flaskr.routes.reports import reports_bp
 from flask_login import LoginManager
 from flaskr.models.user_model import User
 from config import FlaskConfigs, Cores
+from datetime import timedelta
 
 def create_app():
     app = Flask(__name__)
 
     app.config["SECRET_KEY"] = FlaskConfigs["SECRET_KEY"]
     app.config["SESSION_PERMANENT"] = FlaskConfigs.getboolean("SESSION_PERMANENT")
+    app.config["REMEMBER_COOKIE_DURATION"] = timedelta(days=30)
 
     init_pool()
 

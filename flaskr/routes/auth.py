@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, login_required
 from flaskr.forms import LoginForm
 from flaskr.db.connection import get_connection
 from flaskr.models.user_model import User
+from flask_login import current_user
 
 auth_bp = Blueprint("auth_bp", __name__)
 
@@ -14,10 +15,14 @@ def root():
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
+    
+    if current_user.is_authenticated:
+        return redirect(url_for("menu_bp.menu"))
 
     if form.validate_on_submit():
         username = form.username.data.strip()
         password = form.password.data.strip()
+        remember_me = form.remember_me.data
 
         query = """
             SELECT CE_NUMCT, CE_RASOC, CE_INTER, CE_DIGDUP, CE_DIGCHE, CE_VENCOLET, CE_SITUA, CE_CGCCE
@@ -35,7 +40,7 @@ def login():
 
             if row:
                 user = User.from_db_row(row)
-                login_user(user)  # Flask-Login stores user.id in session
+                login_user(user, remember=remember_me)  # Flask-Login stores user.id in session
                 flash(f"Bem-vindo, {user.rasoc}!", "success")
                 return redirect(url_for("menu_bp.menu"))
             else:
