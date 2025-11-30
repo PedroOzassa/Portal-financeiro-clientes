@@ -23,14 +23,13 @@ class RelatDuplLiquidForm(FlaskForm):
         ],
           validators=[Optional()]
     )
-    start_date = DateField('Período (de)', validators=[Optional()])
-    end_date = DateField('Período (a)', validators=[Optional()])
+    start_date = DateField('Período (de)', validators=[DataRequired()])
+    end_date = DateField('Período (a)', validators=[DataRequired()])
     submit = SubmitField('Abrir')
 
 class RelatDuplRecebForm(FlaskForm):
     cedente_id = StringField('Número da C/C', validators=[DataRequired()])
     situation = SelectField(
-        # TODO change the js script to work on this page
         'Situação', 
         choices=[
             ('1','A vencer'),
@@ -39,15 +38,15 @@ class RelatDuplRecebForm(FlaskForm):
         ],
           validators=[Optional()]
     )
-    start_date = DateField('Período (de)', validators=[Optional()])
-    end_date = DateField('Período (a)', validators=[Optional()])
+    start_date = DateField('Período (de)', validators=[DataRequired()])
+    end_date = DateField('Período (a)', validators=[DataRequired()])
     submit = SubmitField('Abrir')
 
 class RelatGeralForm(FlaskForm):
     cedente_id = StringField('Número do Cedente', validators=[DataRequired()])
     cedente_type = StringField('Tipo', validators=[DataRequired()])
-    start_date = DateField('Período (de)', validators=[Optional()])
-    end_date = DateField('Período (a)', validators=[Optional()])
+    start_date = DateField('Período (de)', validators=[DataRequired()])
+    end_date = DateField('Período (a)', validators=[DataRequired()])
     interval = SelectField(
         'Intervalo', 
         choices=[
@@ -56,6 +55,6 @@ class RelatGeralForm(FlaskForm):
             ('30','30 Dias'),
             ('custom','Personalizado')
         ],
-          validators=[Optional()]
+          validators=[DataRequired()]
     )
     submit = SubmitField('Abrir')
