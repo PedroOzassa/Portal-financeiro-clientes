@@ -15,13 +15,20 @@
                     <div class="col-auto p-0"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-image text-primary" style="width: 128px;height: 128px;">
                             <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path>
                             <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12"></path>
-                        </svg></div>
+                        </svg>
+                    </div>
                     <div class="col-md-10 col-lg-10 col-xl-10 col-xxl-10">
                         <h3 class="fw-bold mb-1">Posição de Duplicatas a Receber por Cedente</h3>
-                        <h6 class="text-muted mb-2">dd/mm/aaaa hh:mm:ss</h6>
+                        <h6 class="text-muted mb-2">{{ dtini }} → {{ dtfim }}</h6>
+                        <h6 class="text-muted">
+                            Gerado em {{ datetime.strftime("%d/%m/%Y %H:%M:%S") }}
+                        </h6>
                     </div>
                 </div>
-                <h5><span>Cedente:</span>&nbsp;Numct Rasoc/Fanta</h5><a class="fw-semibold text-decoration-none" href="#">Clique aqui para ver o TOTAL</a>
+
+                <h5><span>Cedente:</span>&nbsp;{{ numct }} - {{ rasoc }}</h5>
+                <a class="fw-semibold text-decoration-none" href="#total-row">Clique aqui para ver o TOTAL</a>
+
                 <div class="table-responsive border rounded-1 mt-3">
                     <table class="table">
                         <thead>
@@ -35,25 +42,28 @@
                                 <th class="fw-semibold text-center bg-secondary">Tipo</th>
                                 <th class="fw-semibold text-center bg-secondary">Port.</th>
                                 <th class="fw-semibold text-start bg-secondary">Observações</th>
-                                <th class="fw-semibold text-end bg-secondary">Nosso Número</th>
+                                <th class="fw-semibold text-end bg-secondary">Número</th>
                             </tr>
                         </thead>
+
                         <tbody>
+                            {% for row in first_table %}
                             <tr>
-                                <td>1</td>
-                                <td><span style="color: rgb(31, 41, 55);">05570233000058</span></td>
-                                <td><span style="color: rgb(31, 41, 55);">CONFAR COMERCIO DE ROUPAS PARA O TRABALH</span></td>
-                                <td class="text-center">1/1</td>
-                                <td class="text-center">01/11/2025</td>
-                                <td class="text-center">90,00</td>
-                                <td class="text-center">N</td>
-                                <td class="text-center">2372</td>
-                                <td class="text-start">VAZIO</td>
-                                <td class="text-end">0000000004</td>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ row.DA_CGCPF }}</td>
+                                <td>{{ row.SA_RASOC }}</td>
+                                <td>{{ row.DA_DOCUM }}/{{ row.DA_PARCE }}</td> <!-- TODO Verificar se esta certo -->
+                                <td>{{ row.DA_DTVEN.strftime("%d/%m/%Y") if row.DA_DTVEN else '' }}</td>
+                                <td>{{ "{:,.2f}".format(row.DA_VLTIT) }}</td>
+                                <td>{{ row.DA_TIPDA }}</td> <!-- Verificar se esta certo -->
+                                <td>{{ row.DA_CODPO }}</td> <!-- Verificar se esta certo -->
+                                <td>{{ row.DA_OBSER or 'VAZIO' }}</td> <!-- Verificar se esta certo -->
+                                <td>{{ row.DA_NROBC or ''}}</td> <!-- Verificar se esta certo -->
                             </tr>
+                            {% endfor %}
                             <tr>
-                                <td class="fw-semibold text-end text-bg-light" colspan="5">TOTAL</td>
-                                <td class="fw-semibold text-bg-light" colspan="5">100,00</td>
+                                <td class="fw-semibold text-start text-bg-light" colspan="5">TOTAL</td>
+                                <td class="fw-semibold text-bg-light" colspan="5">{{ "{:,.2f}".format(DA_VLTIT_total) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -63,19 +73,23 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th class="text-nowrap fw-semibold bg-secondary">Sacado</th>
-                                <th class="text-nowrap fw-semibold text-end bg-secondary">Qtde</th>
-                                <th class="fw-semibold text-end bg-secondary">Valor</th>
+                                <th class="text-nowrap fw-semibold bg-secondary">Nome do Sacado</th>
+                                <th class="text-nowrap text-end fw-semibold text-end bg-secondary">Sacado</th>
+                                <th class="text-nowrap text-end fw-semibold text-end bg-secondary">Qtde</th>
+                                <th class="fw-semibold text-end text-end bg-secondary">Valor</th>
                                 <th class="fw-semibold text-end bg-secondary">% Total</th>
                             </tr>
                         </thead>
                         <tbody>
+                            {% for row in second_table %}
                             <tr>
-                                <td><span style="color: rgb(31, 41, 55);">CONFAR COMERCIO DE ROUPAS PARA O TRABALH</span></td>
-                                <td class="text-end">1</td>
-                                <td class="text-end">90,00</td>
-                                <td class="text-end">22.50%</td>
+                                <td>{{ row.SA_RASOC }}</td>
+                                <td class="text-end">{{ row.CGCPF }}</td>
+                                <td class="text-end">{{ row.QTDTIT }}</td>
+                                <td class="text-end">{{ "{:,.2f}".format(row.TOTBRU) }}</td>
+                                <td class="text-end">{{ row.PORCTG }}%</td>
                             </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
