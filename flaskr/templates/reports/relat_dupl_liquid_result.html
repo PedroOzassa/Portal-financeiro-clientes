@@ -11,8 +11,12 @@
     <div class="col-11 p-0 mt-5 mb-5">
         <div class="card rounded-4 p-2">
             <div class="card-body">
-
                 <div class="row m-0 p-0 mb-2">
+                    <div class="col-auto p-0"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-image text-primary" style="width: 128px;height: 128px;">
+                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path>
+                            <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12"></path>
+                        </svg>
+                    </div>
                     <div class="col-md-6">
                         <h3 class="fw-bold mb-1 text-primary">Duplicatas Liquidadas</h3>
                         <h6 class="text-muted mb-2">{{ dtini }} → {{ dtfim }}</h6>
@@ -23,7 +27,7 @@
                 </div>
 
                 <h5><span>Cedente:</span>&nbsp;{{ numct }} - {{ rasoc }}</h5>
-                <a class="fw-semibold text-decoration-none" href="#">Clique aqui para ver o TOTAL</a>
+                <a class="fw-semibold text-decoration-none" href="#total-row">Clique aqui para ver o TOTAL</a>
 
                 <div class="table-responsive border rounded-1 mt-3">
                     <table class="table">
@@ -36,10 +40,11 @@
                                 <th class="text-nowrap fw-semibold bg-secondary">Valor</th>
                                 <th class="fw-semibold bg-secondary">Vencimento</th>
                                 <th class="fw-semibold text-start bg-secondary">Pagamento</th>
-                                <th class="fw-semibold text-start bg-secondary">Atrasado</th>
-                                <th class="fw-semibold text-end bg-secondary">Valor Pago</th> <!-- TODO: Fazer o calculo de quantos dias está atrasado usando DTV-->
+                                <th class="fw-semibold text-center bg-secondary">Atrasado</th>
+                                <th class="fw-semibold text-end bg-secondary">Valor Pago</th>
                             </tr>
                         </thead>
+                        
                         <tbody>
                             <tr>
                                 <td class="fw-semibold text-black text-bg-secondary" colspan="4">--&gt; Obs</td>
@@ -50,11 +55,11 @@
                                 <td>{{ loop.index }}</td>
                                 <td>{{ row.DA_CGCPF }}</td>
                                 <td>{{ row.SA_RASOC }}</td>
-                                <td>{{ row.DA_DOCUM }}/{{ row.DA_PARCE }}</td> <!-- Esta certo -->
+                                <td>{{ row.DA_DOCUM }}/{{ row.DA_PARCE }}</td>
                                 <td>{{ "{:,.2f}".format(row.DA_VLTIT) }}</td>
                                 <td>{{ row.DA_DTVEN.strftime("%d/%m/%Y") if row.DA_DTVEN else '' }}</td>
                                 <td class="text-start">{{ row.DATAPAGTO.strftime("%d/%m/%Y") if row.DATAPAGTO else '' }}</td>
-                                <td class="text-start">{{ row.DA_NUMAC }}</td>
+                                <td class="text-center">{{ row.ATRASO }}</td>
                                 <td class="text-end">{{ "{:,.2f}".format(row.DA_VLPAG or 0) }}</td>
                             </tr>
                             <tr>
@@ -62,7 +67,7 @@
                                 <td colspan="5">{{ row.DA_MOTIV or '' }}</td>
                             </tr>
                             {% endfor %}
-                            <tr>
+                            <tr id="total-row">
                                 <td class="fw-semibold text-start text-bg-light" colspan="4">TOTAL</td>
                                 <td class="fw-semibold text-bg-light" colspan="4">{{ "{:,.2f}".format(total_titulo) }}</td>
                                 <td class="fw-normal text-end text-bg-light" colspan="1">{{ "{:,.2f}".format(total_pago) }}</td>

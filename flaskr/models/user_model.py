@@ -1,9 +1,16 @@
 from flask_login import UserMixin
 from flaskr.db.connection import get_connection
 
+# Flask-Login automatically exposes `current_user` inside all Jinja templates.
+# It does this through a context processor added by LoginManager, which injects
+# "current_user" into the template context on every jinja generated page.
+# Because of that, any attribute defined on this User class (rasoc, cgccpf, etc.)
+# becomes directly accessible in templates like: {{ current_user.rasoc }}.
+
 class User(UserMixin):
     def __init__(self, numct, rasoc, inter, digdup, digche, vencolet, situa, cgccpf):
         self.id = numct  # Flask-Login expects 'id'
+        # TODO: Add type here for relat_geral
         self.rasoc = rasoc
         self.inter = inter
         self.digdup = digdup
