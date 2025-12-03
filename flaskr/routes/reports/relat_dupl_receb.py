@@ -103,12 +103,12 @@ def relat_dupl_receb_result():
                 ]
 
                 # This creates a list of dicts, one for each table entry received
-                firt_table_data = [dict(zip(columns, row)) for row in rows]
+                first_table_data = [dict(zip(columns, row)) for row in rows]
                 # Filters first_table_data based on form option
                 
         today = datetime.today().date()
         filtered = []
-        for r in firt_table_data:
+        for r in first_table_data:
             ven = r["DA_DTVEN"]
             ven_date = ven.date() if hasattr(ven, "date") else ven
 

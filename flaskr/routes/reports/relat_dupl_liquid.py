@@ -102,11 +102,11 @@ def relat_dupl_liquid_result():
                 ]
                 
                 # This creates a list of dicts, one for each table entry received
-                data = [dict(zip(columns, row)) for row in rows]
+                table_data = [dict(zip(columns, row)) for row in rows]
 
         # Calculates the number of late days
         today = datetime.today().date()
-        for r in data:
+        for r in table_data:
             r["ATRASO"] = ""
 
             ven = r.get("DA_DTVEN")
@@ -122,15 +122,15 @@ def relat_dupl_liquid_result():
                 r["ATRASO"] = "0"
 
         # Calculates the sum of the DA_VLPAG and DA_VLTIT columns
-        total_pago = sum((r["DA_VLPAG"] or 0) for r in data)
-        total_titulo = sum((r["DA_VLTIT"] or 0) for r in data)
+        total_pago = sum((r["DA_VLPAG"] or 0) for r in table_data)
+        total_titulo = sum((r["DA_VLTIT"] or 0) for r in table_data)
         
         now = datetime.now()
 
         # Passes to the template all arguments to be rendered
         return render_template(
             "reports/relat_dupl_liquid_result.html",
-            rows=data,
+            rows=table_data,
             total_pago=total_pago,
             total_titulo=total_titulo,
             numct=numct,

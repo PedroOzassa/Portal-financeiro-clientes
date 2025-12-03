@@ -10,7 +10,7 @@ from flaskr.db.connection import get_connection
 class User(UserMixin):
     def __init__(self, numct, rasoc, inter, digdup, digche, vencolet, situa, cgccpf):
         self.id = numct  # Flask-Login expects 'id'
-        # TODO: Add type here for relat_geral
+        self.type = 1 # User type in this system is always 1
         self.rasoc = rasoc
         self.inter = inter
         self.digdup = digdup
