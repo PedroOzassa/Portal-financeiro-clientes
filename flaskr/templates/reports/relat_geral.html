@@ -29,7 +29,7 @@
                                     {# TODO Find out where is the user type on the session and replace here#}
                                     {{ form.cedente_type.label(class="form-label fw-semibold text-start text-muted mb-1 d-block") }}
                                     {# Gets the value directly from the user's session #}
-                                    {{ form.cedente_type(class="form-control", placeholder="Digite o número da conta", value=1, readonly="readonly") }}                                
+                                    {{ form.cedente_type(class="form-control", placeholder="Digite tipo da conta", value=current_user.type, readonly="readonly") }}                                
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -54,9 +54,9 @@
                     </div>
                     {{ form.submit(class="btn btn-primary btn-lg fs-6 fw-semibold m-2 ps-4 pe-4") }}
                 </form>
+                {# <hr> TODO remover dps talvez #} 
+                {# <h5 class="fw-semibold text-end">Saldo Final: <span class="fw-bold text-primary">R$ 0,00</span></h5>  #}  
                 
-                <hr>
-                <h5 class="fw-semibold text-end">Saldo Final: <span class="fw-bold text-primary">R$ 0,00</span></h5>
             </div>
         </div>
     </div>

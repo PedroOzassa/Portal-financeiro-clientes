@@ -11,23 +11,32 @@
     <div class="col-10 p-0 mt-5">
         <div class="card rounded-4 p-2">
             <div class="card-body">
+
                 <div class="row m-0 p-0 mb-2">
                     <div class="col-auto p-0"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-image text-primary" style="width: 128px;height: 128px;">
                             <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"></path>
                             <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12"></path>
-                        </svg></div>
+                        </svg>
+                    </div>
                     <div class="col-md-6">
-                        <h3 class="fw-bold mb-1">Relatório gráfico</h3>
-                        <h6 class="text-muted mb-2">dd/mm/aaaa hh:mm:ss</h6>
+                        <h3 class="fw-bold mb-1 text-primary">Relatório Gráfico</h3>
+                        <h6 class="text-muted mb-2">{{ dtini }} → {{ dtfim }}</h6>
+                        <h6 class="text-muted">
+                            Gerado em {{ datetime.strftime("%d/%m/%Y %H:%M:%S") }}
+                        </h6>
                     </div>
                 </div>
-                <h5>Relatório Gráfico: Numct Rasoc/Fanta</h5><a class="fw-semibold text-decoration-none" href="#">Clique aqui para ver o saldo</a>
+
+                <h5><span>Relatório Grafico:</span>&nbsp;{{ numct }} - {{ rasoc }}</h5>
+                <a class="fw-semibold text-decoration-none" href="#total-row">Clique aqui para ver o TOTAL</a>
+
                 <div class="table-responsive border rounded-1 mt-3">
                     <table class="table">
                         <thead>
                             <tr>
                                 <th class="text-nowrap fw-semibold bg-secondary">DATA</th>
                                 <th class="fw-semibold bg-secondary">HISTÓRICO</th>
+                                <th class="fw-semibold bg-secondary"></th>
                                 <th class="fw-semibold text-end bg-secondary">DÉBITO</th>
                                 <th class="fw-semibold text-end bg-secondary">CRÉDITO</th>
                                 <th class="fw-semibold text-end bg-secondary">SALDO</th>
@@ -36,16 +45,31 @@
                         <tbody>
                             {% for row in lancamentos %}
                             <tr>
-                                <td>{{ row[0].strftime('%d/%m/%Y') if row[0] else '' }}</td>
-                                <td>{{ row[1] }}</td>
-                                <td class="text-end">{{ "%.2f"|format(row[4]) }}</td>
-                                <td class="text-end"></td>
-                                <td class="text-end"></td>
+                                <td>{{ row.Data.strftime('%d/%m/%Y') }}</td>
+                                <td>{{ row.LC_HISPA }}</td>
+                                <td>{{ row.LC_COHIS }}</td>
+
+                                <td class="text-end">
+                                    {% if row.DEBITO %}
+                                        {{ "%.2f"|format(row.DEBITO) }}
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-end">
+                                    {% if row.CREDITO %}
+                                        {{ "%.2f"|format(row.CREDITO) }}
+                                    {% endif %}
+                                </td>
+
+                                <td class="text-end">
+                                    {{ "%.2f"|format(row.SALDO) }}
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
